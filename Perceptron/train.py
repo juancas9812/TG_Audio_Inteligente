@@ -32,25 +32,15 @@ test_df, val_df = train_test_split(
 test_df.reset_index(inplace=True, drop=True)
 val_df.reset_index(inplace=True, drop=True)
 
-
-train_data = train_df[:10][:]
-val_data = val_df[:4][:]
-
-#model = create_nn()
-
 # Assign generator to the data split in order to input data to the NN
 traingen = generator(train_df, mix_path=mixed_path, clean_path=clean_path)
-traingen = generator(train_data, mix_path=mixed_path, clean_path=clean_path)
-testgen = generator(test_df, mix_path=mixed_path, clean_path=clean_path, training=False)
-
 valgen = generator(val_df, mix_path=mixed_path, clean_path=clean_path)
-valgen = generator(val_data, mix_path=mixed_path, clean_path=clean_path)
-
 
 try:
     os.mkdir(os.path.join(os.getcwd(), "Model1"))
 except OSError as error:
-    print("models will save in the folder: model1")
+    print(error, end=", ")
+    print("models will save in the folder: Model1")
 
 now = datetime.now()
 time_tr = now.strftime("%m_%d_%Y_%H:%M:%S")
