@@ -35,17 +35,69 @@ utilizarlos.
         - :page_with_curl:[inference.py](CRN/inference.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Código para usar el modelo 2
         - :page_with_curl:[train.py](CRN/train.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Código para entrenar el modelo 2
 
-## 2. Creacion del conjunto de datos
-En caso de ya tener los audios de voz y de ruido con longitud de 5s y
-con el mismo muestreo ejecutar solamente el código dataset_list.py.
 
-Se debe modificar el archivo [config.json5](config.json5) y colocar las
-rutas de las carpetas y metadatos de los audios antes de ejecutar
-cualquiera de los códigos en la carpeta [Dataset](Dataset). Una vez 
-modificado el archivo [config.json5](config.json5), ejecutar de la
-siguiente manera:
+## 2. Dependencias
+Se deben tener los siguientes modulos de python en el ambiente:
+```
+Tensorflow
+PyTorch
+librosa
+numpy
+pandas
+matplotlib
+json5
+scikit-learn
+scipy
+pesq
+pystoi
+```
+
+## 3. Creacion del conjunto de datos
+En caso de ya tener los audios de voz y de ruido con longitud de 5s y con el
+mismo muestreo ejecutar solamente el código dataset_list.py.
+
+Se debe modificar el archivo [config.json5](config.json5) y colocar las rutas
+de las carpetas y metadatos de los audios antes de ejecutar cualquiera de los
+códigos en la carpeta [Dataset](Dataset). Una vez modificado el archivo [config.json5](config.json5), ejecutar de la siguiente manera:
 ```bash
 python3 Dataset/dataset_list.py
 ```
-Al correr [dataset_list.py](Dataset/dataset_list.py), la particion del
-conjunto de datos es de 70/15/15 por defecto.
+Al correr [dataset_list.py](Dataset/dataset_list.py), la particion del conjunto
+de datos es de 70/15/15 por defecto.
+
+
+## 4. Entrenamiento del modelo 1
+Para entrenar el modelo 1 se debe modificar el archivo [config.json5](config.json5)
+con la ruta de los audios de mezcla (voz+ruido) y de voz, y adicionalmente, se
+debe especificar el número de epochs y el número de neuronas por capa:
+```json
+"train.py": {
+    "mixed_path": "...ruta de audios con mezcla",
+    "clean_path": "...ruta de audios de voz",
+    "dataset_csv": "...ruta de los metadatos del conjunto/nombre_del_archivo.csv",
+    "layers": [100,100,50],
+    "epochs": 20
+}
+```
+Para entrenar el modelo ejecutar de la siguiente manera:
+```bash
+python3 Perceptron/train.py
+```
+
+## 5. Entrenamiento del modelo 2
+El modelo 2 se basa en el [código](https://github.com/haoxiangsnr/A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement) desarrollado por [haoxiangsnr
+](https://github.com/haoxiangsnr). Para un mejor entendimiento de este, revisar
+el repositorio [A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement](https://github.com/haoxiangsnr/A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement).
+
+Antes de entrenar el segundo modelo se debe cambiar el parámetro *"root_dir"* por la ruta
+al directorio donde se tiene o se guardará el modelo, los parámetros *"dataset_list"*
+por la ruta y nombre del archivo de texto que contiene la lista con los audios
+para el entrenamiento y validación respectivamente dentro de *"train_dataset"* y
+*"validation_dataset"*. Adicionalmente se puede cambiar el número de epochs
+modificando el valor del parámetro *"epochs"* dentro de *"trainer"*.
+
+Para entrenar el segundo modelo:
+```
+python3 CRN/train.py -C CRN/config/train/baseline_model.json5
+```
+o entrar a la carpeta CRN y ejecutar el archivo [train.py](CRN/train.py)
