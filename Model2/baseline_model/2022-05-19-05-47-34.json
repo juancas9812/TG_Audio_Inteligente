@@ -1,0 +1,72 @@
+{
+  seed: 0,
+  description: "null",
+  root_dir: "/data/estudiantes/juansarmiento/A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement-master/Model2",
+  cudnn_deterministic: false,
+  trainer: {
+    module: "trainer.causal_trainer",
+    main: "Trainer",
+    epochs: 40,
+    save_checkpoint_interval: 1,
+    validation: {
+      interval: 1,
+      find_max: true,
+      custom: {
+        visualization_limit: 20,
+        n_fft: 320,
+        win_length: 320,
+        hop_length: 160,
+      },
+    },
+  },
+  model: {
+    module: "model.crn",
+    main: "CRN",
+    args: {},
+  },
+  loss_function: {
+    module: "model.loss",
+    main: "mse_loss_for_variable_length_data",
+    args: {},
+  },
+  optimizer: {
+    lr: 0.0006,
+    beta1: 0.9,
+    beta2: 0.999,
+  },
+  train_dataset: {
+    module: "dataset.dataset_variable_length_input",
+    main: "Dataset",
+    args: {
+      dataset_list: "/data/estudiantes/juansarmiento/train_list_dataset.txt",
+      limit: null,
+      offset: 0,
+      sr: 16000,
+      n_fft: 320,
+      hop_length: 160,
+      train: true,
+    },
+  },
+  validation_dataset: {
+    module: "dataset.dataset_variable_length_input",
+    main: "Dataset",
+    args: {
+      dataset_list: "/data/estudiantes/juansarmiento/validation_list_dataset.txt",
+      limit: null,
+      offset: 0,
+      sr: 16000,
+      n_fft: 320,
+      hop_length: 160,
+      train: false,
+    },
+  },
+  train_dataloader: {
+    batch_size: 32,
+    num_workers: 2,
+    shuffle: true,
+    pin_memory: true,
+  },
+  experiment_name: "baseline_model",
+  config_path: "config/train/baseline_model.json5",
+  preloaded_model_path: null,
+}
