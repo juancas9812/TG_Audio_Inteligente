@@ -46,6 +46,7 @@ numpy
 pandas
 matplotlib
 json5
+tqdm
 scikit-learn
 scipy
 pesq
