@@ -18,7 +18,8 @@ utilizarlos.
 :open_file_folder:
 :page_with_curl:
 :clipboard:
-```
+
+
 :package:TG_Audio_Inteligente
 ├── :clipboard:config.json5
 ├── :open_file_folder:Dataset
@@ -45,7 +46,6 @@ utilizarlos.
     ├── :open_file_folder:util
     ├── :page_with_curl:inference.py
     └── :page_with_curl:train.py
-```
 
 - :package:TG_Audio_Inteligente
   - :clipboard:[config.json5](config.json5)
