@@ -87,7 +87,8 @@ python3 Perceptron/train.py
 ## 5. Entrenamiento del modelo 2
 El modelo 2 se basa en el [código](https://github.com/haoxiangsnr/A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement) desarrollado por [haoxiangsnr
 ](https://github.com/haoxiangsnr). Para un mejor entendimiento de este, revisar
-el repositorio [A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement](https://github.com/haoxiangsnr/A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement).
+el repositorio [A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement](https://github.com/haoxiangsnr/A-Convolutional-Recurrent-Neural-Network-for-Real-Time-Speech-Enhancement)
+Así como la publicación [A Convolutional Recurrent Neural Network for Real-Time Speech Enhancement](https://web.cse.ohio-state.edu/~wang.77/papers/Tan-Wang1.interspeech18.pdf)
 
 Antes de entrenar el segundo modelo se debe cambiar el parámetro *"root_dir"* por la ruta
 al directorio donde se tiene o se guardará el modelo, los parámetros *"dataset_list"*
