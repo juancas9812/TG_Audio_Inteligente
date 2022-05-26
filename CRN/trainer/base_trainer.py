@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
+from torchinfo import summary
+
 from util import visualization
 from util.metrics import STOI, PESQ, SI_SDR
 from util.utils import prepare_empty_dir, ExecutionTime, prepare_device
@@ -53,8 +55,10 @@ class BaseTrainer:
             global_step=1
         )
 
-        if resume: self._resume_checkpoint()
-        if config["preloaded_model_path"]: self._preload_model(Path(config["preloaded_model_path"]))
+        if resume:
+            self._resume_checkpoint()
+        if config["preloaded_model_path"]:
+            self._preload_model(Path(config["preloaded_model_path"]))
 
         print("Configurations are as follows: ")
         print(json5.dumps(config, indent=2, sort_keys=False))
@@ -62,6 +66,7 @@ class BaseTrainer:
         with open((self.root_dir / f"{time.strftime('%Y-%m-%d-%H-%M-%S')}.json").as_posix(), "w") as handle:
             json5.dump(config, handle, indent=2, sort_keys=False)
 
+        self.network_summary()
         self._print_networks([self.model])
 
     def _preload_model(self, model_path):
@@ -72,7 +77,8 @@ class BaseTrainer:
             model_path(Path): the path of the *.pth file
         """
         model_path = model_path.expanduser().absolute()
-        assert model_path.exists(), f"Preloaded *.pth file is not exist. Please check the file path: {model_path.as_posix()}"
+        assert model_path.exists(
+        ), f"Preloaded *.pth file is not exist. Please check the file path: {model_path.as_posix()}"
         model_checkpoint = torch.load(model_path.as_posix(), map_location=self.device)
 
         if isinstance(self.model, torch.nn.DataParallel):
@@ -88,7 +94,8 @@ class BaseTrainer:
             To be careful at Loading model. if model is an instance of DataParallel, we need to set model.module.*
         """
         latest_model_path = self.checkpoints_dir.expanduser().absolute() / "latest_model.tar"
-        assert latest_model_path.exists(), f"{latest_model_path} does not exist, can not load latest checkpoint."
+        assert latest_model_path.exists(
+        ), f"{latest_model_path} does not exist, can not load latest checkpoint."
 
         checkpoint = torch.load(latest_model_path.as_posix(), map_location=self.device)
 
@@ -130,13 +137,14 @@ class BaseTrainer:
         Notes:
             - latest_model.tar:
                 Contains all checkpoint information, including optimizer parameters, model parameters, etc. New checkpoint will overwrite old one.
-            - model_<epoch>.pth: 
+            - model_<epoch>.pth:
                 The parameters of the model. Follow-up we can specify epoch to inference.
             - best_model.tar:
                 Like latest_model, but only saved when <is_best> is True.
         """
         torch.save(state_dict, (self.checkpoints_dir / "latest_model.tar").as_posix())
-        torch.save(state_dict["model"], (self.checkpoints_dir / f"model_{str(epoch).zfill(4)}.pth").as_posix())
+        torch.save(state_dict["model"], (self.checkpoints_dir /
+                   f"model_{str(epoch).zfill(4)}.pth").as_posix())
         if is_best:
             print(f"\t Found best score in {epoch} epoch, saving...")
             torch.save(state_dict, (self.checkpoints_dir / "best_model.tar").as_posix())
@@ -162,6 +170,13 @@ class BaseTrainer:
         """transform [-0.5 ~ 4.5] to [0 ~ 1]
         """
         return (pesq_score + 0.5) / 5
+
+################################
+######
+    def network_summary(self):
+        summary(self.model, [32, 1, 161, 501])
+######
+################################
 
     @staticmethod
     def _print_networks(nets: list):
@@ -203,9 +218,12 @@ class BaseTrainer:
         # self.writer.add_figure(f"Waveform/{name}", fig, epoch)
 
         # Visualize spectrogram
-        noisy_mag, _ = librosa.magphase(librosa.stft(noisy, n_fft=320, hop_length=160, win_length=320))
-        enhanced_mag, _ = librosa.magphase(librosa.stft(enhanced, n_fft=320, hop_length=160, win_length=320))
-        clean_mag, _ = librosa.magphase(librosa.stft(clean, n_fft=320, hop_length=160, win_length=320))
+        noisy_mag, _ = librosa.magphase(librosa.stft(
+            noisy, n_fft=320, hop_length=160, win_length=320))
+        enhanced_mag, _ = librosa.magphase(librosa.stft(
+            enhanced, n_fft=320, hop_length=160, win_length=320))
+        clean_mag, _ = librosa.magphase(librosa.stft(
+            clean, n_fft=320, hop_length=160, win_length=320))
 
         fig, axes = plt.subplots(3, 1, figsize=(6, 6))
         for k, mag in enumerate([
@@ -217,7 +235,8 @@ class BaseTrainer:
                               f"std: {np.std(mag):.3f}, "
                               f"max: {np.max(mag):.3f}, "
                               f"min: {np.min(mag):.3f}")
-            librosa.display.specshow(librosa.amplitude_to_db(mag), cmap="magma", y_axis="linear", ax=axes[k], sr=16000)
+            librosa.display.specshow(librosa.amplitude_to_db(
+                mag), cmap="magma", y_axis="linear", ax=axes[k], sr=16000)
         plt.tight_layout()
         self.writer.add_figure(f"Spectrogram/{name}", fig, epoch)
 
