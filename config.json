@@ -31,6 +31,20 @@
         "dataset_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/mixed_audio.csv",
         "layers": [100,50],
         "epochs": 2
+    },
+
+    "evaluate.py":{
+        "mixed_path": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/Audio",
+        "mixed_list_txt": "/Users/clarae/Desktop/TG_Audio_Inteligente/Dataset/test_list_dataset.txt",
+        "clean_path": "/Users/clarae/Desktop/Clean",
+        "dataset_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/mixed_audio.csv",
+        "perceptron_path": "/Users/clarae/Desktop/Models1TG/model1_100-50-1_100ep_1647359520",
+        "crn_path": "/Users/clarae/Desktop/Models1TG/model1_100-50-1_100ep_1647359520",
+        "perceptron_enhancement_path": "/Users/clarae/Desktop/Output_perceptron",
+        "crn_enhancement_path": "/Users/clarae/Desktop/Output_crn",
+        "results_csv_path": "/Users/clarae/Desktop/TG_Audio_Inteligente",
+        "save_signals_model_1": true,
+        "save_signals_model_2": true
     }
 
 }
