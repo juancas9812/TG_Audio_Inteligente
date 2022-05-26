@@ -19,25 +19,6 @@ utilizarlos.
 :page_with_curl:
 :clipboard:
 
-Edit me to generate
-├── a
-│   └── nice
-│       └── tree
-│           ├── diagram!
-│           └── :)
-└── Use indentation
-    ├── to indicate
-    │   ├── file
-    │   ├── and
-    │   ├── folder
-    │   └── nesting.
-    └── You can even
-        └── use
-            ├── markdown
-            └── bullets!
-
-
-
 :package:TG_Audio_Inteligente
 ├── :clipboard:config.json5
 ├── :open_file_folder:Dataset
