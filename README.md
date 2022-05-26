@@ -37,7 +37,7 @@ utilizarlos.
 
 
 ## 2. Dependencias
-Se deben tener los siguientes modulos de python en el ambiente:
+Se deben tener los siguientes módulos de python en el ambiente:
 ```
 Tensorflow
 PyTorch
@@ -51,9 +51,10 @@ scikit-learn
 scipy
 pesq
 pystoi
+torchinfo
 ```
 
-## 3. Creacion del conjunto de datos
+## 3. Creación del conjunto de datos
 En caso de ya tener los audios de voz y de ruido con longitud de 5s y con el
 mismo muestreo ejecutar solamente el código dataset_list.py.
 
@@ -64,7 +65,7 @@ códigos en la carpeta [Dataset](Dataset). Una vez modificado el archivo [config
 python3 Dataset/dataset_list.py
 ```
 Al correr [dataset_list.py](Dataset/dataset_list.py), la particion del conjunto
-de datos es de 70/15/15 por defecto.
+de datos es de 70/15/15 (train/test/val) por defecto.
 
 
 ## 4. Entrenamiento del modelo 1
