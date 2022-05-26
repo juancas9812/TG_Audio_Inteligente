@@ -1,0 +1,36 @@
+{
+
+    "div_audio.py":{
+        "uncut_librivox_audio": "/Users/clarae/Desktop/Speech_Enhancement-TG/LibriVox/wavs",
+        "audio_dest": "/Users/clarae/Desktop/Speech_Enhancement-TG/LibriVox/Audio",
+        "librivox_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/LibriVox/librivox.csv",
+        "cut_audio_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/LibriVox/Audio_data.csv"
+    },
+
+    "mix_audio.py":{
+        "clean_path": "/Users/clarae/Desktop/Speech_Enhancement-TG/LibriVox/Audio",
+        "clean_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/LibriVox/Audio_data.csv",
+        "noise_path": "/Users/clarae/Desktop/TG_Audio_Inteligente/ESC-50/audio",
+        "noise_csv": "/Users/clarae/Desktop/TG_Audio_Inteligente/ESC-50/meta/esc50.csv",
+        "mix_output_path": "/Users/clarae/Desktop/Mixed/audio",
+        "mix_csv_out_path": "/Users/clarae/Desktop/Mixed",
+        "norm_clean_out_path": "/Users/clarae/Desktop/Clean"
+    },
+
+    "dataset_list.py": {
+        "base_path": "/Users/clarae/Desktop/TG_Audio_Inteligente",
+        "mixed_path": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/audio",
+        "clean_path": "/Users/clarae/Desktop/Clean",
+        "dataset_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/mixed_audio.csv",
+        "output_path": "/Users/clarae/Desktop/TG_Audio_Inteligente/Dataset"
+    },
+
+    "train.py": {
+        "mixed_path": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/Audio",
+        "clean_path": "/Users/clarae/Desktop/Clean/Audio",
+        "dataset_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/mixed_audio.csv",
+        "layers": [100,50],
+        "epochs": 2
+    }
+
+}
