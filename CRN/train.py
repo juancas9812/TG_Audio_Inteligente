@@ -11,6 +11,10 @@ from util.utils import initialize_config
 
 
 def main(config, resume):
+
+    # Set lower num_threads to lower cpu usage
+    # torch.set_num_threads(2)
+
     # Random seed for both CPU and GPU.
     torch.manual_seed(config["seed"])
     np.random.seed(config["seed"])
@@ -34,8 +38,10 @@ def main(config, resume):
         # seq_list = [(T1, F), (T2, F), ...]
         #   item.size() must be (T, *)
         #   return (longest_T, len(seq_list), *)
-        noisy_list = pad_sequence(noisy_list).permute(1, 2, 0)  # ([T1, F], [T2, F], ...) => [T, B, F] => [B, F, T]
-        clean_list = pad_sequence(clean_list).permute(1, 2, 0)  # ([T1, 1], [T2, 1], ...) => [T, B, 1] => [B, 1, T]
+        # ([T1, F], [T2, F], ...) => [T, B, F] => [B, F, T]
+        noisy_list = pad_sequence(noisy_list).permute(1, 2, 0)
+        # ([T1, 1], [T2, 1], ...) => [T, B, 1] => [B, 1, T]
+        clean_list = pad_sequence(clean_list).permute(1, 2, 0)
 
         return noisy_list, clean_list, n_frames_list, names
 
@@ -80,9 +86,12 @@ def main(config, resume):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="CRN")
-    parser.add_argument("-C", "--configuration", required=True, type=str, help="Configuration (*.json).")
-    parser.add_argument("-P", "--preloaded_model_path", type=str, help="Path of the *.Pth file of the model.")
-    parser.add_argument("-R", "--resume", action="store_true", help="Resume experiment from latest checkpoint.")
+    parser.add_argument("-C", "--configuration", required=True,
+                        type=str, help="Configuration (*.json).")
+    parser.add_argument("-P", "--preloaded_model_path", type=str,
+                        help="Path of the *.Pth file of the model.")
+    parser.add_argument("-R", "--resume", action="store_true",
+                        help="Resume experiment from latest checkpoint.")
     args = parser.parse_args()
 
     if args.preloaded_model_path:
