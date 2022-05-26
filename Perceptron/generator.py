@@ -31,13 +31,11 @@ class generator(tf.keras.utils.Sequence):
         return clean[1102:-1102]  # returns the center of the window at each step
 
     def make_data(self, batch):
-        # print(batch['mix_filename'])
         mix_file_path = os.path.join(self.mix_folder, batch['mix_filename'])
         _, mixed = wavfile.read(mix_file_path)  # loads mixed audio file
         # X_batch = self.make_windows(mixed)  # create the batch input for training(windowed signal)
-        # create the batch input for training(windowed signal)
-        X_batch = self.make_windows(mixed[33075:77175])
         if self.training:
+            X_batch = self.make_windows(mixed[33075:77175])
             # create the batch output for traing(center of windows or the 'label' for the input)
             clean_file_path = os.path.join(self.clean_folder, batch['clean_file'])
             _, clean = wavfile.read(clean_file_path)  # loads clean file
@@ -45,6 +43,7 @@ class generator(tf.keras.utils.Sequence):
             y_batch = self.make_outputs(clean[33075:77175])
             return X_batch, y_batch
         else:
+            X_batch = self.make_windows(mixed)
             return X_batch
 
     def __getitem__(self, index):
