@@ -1,10 +1,8 @@
 # Audio inteligente: reducción de ruido de fondo con inteligencia artificial
 
-### Pontificia Universidad Javeriana
-### Trabajo de Grado
-### Departamento de Electrónica
-### Juan Camilo Sarmiento Peñuela
-
+### Pontificia Universidad Javeriana - Trabajo de Grado - Ingenieria Electrónica
+#### Juan Camilo Sarmiento Peñuela
+---
 
 En este repositorio se encuentra el código implementado durante el desarrollo
 del trabajo de grado Audio inteligente: reducción de ruido de fondo con
