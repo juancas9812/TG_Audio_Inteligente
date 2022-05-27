@@ -8,7 +8,7 @@
         "module": "dataset.dataset_enhancement",
         "main": "Dataset",
         "args": {
-            "noisy_dataset": "/data/estudiantes/juansarmiento/test_list_dataset.txt",
+            "noisy_dataset": "/Users/clarae/Desktop/TG_Audio_Inteligente/Dataset/test_list_dataset.txt",
             "limit": null,
             "offset": 0,
             "sr": 16000
