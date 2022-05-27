@@ -6,7 +6,6 @@ from scipy.io import wavfile
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import os
-import numpy as np
 import librosa
 import json
 
