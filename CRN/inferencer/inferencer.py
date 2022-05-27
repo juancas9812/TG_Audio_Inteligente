@@ -1,4 +1,5 @@
 import librosa
+import soundfile as sf
 import torch
 from tqdm import tqdm
 
@@ -23,9 +24,11 @@ def inference_wrapper(
         if inference_args["inference_type"] == "full_band_no_truncation":
             noisy, enhanced = full_band_no_truncation(model, device, inference_args, noisy)
         else:
-            raise NotImplementedError(f"Not implemented Inferencer type: {inference_args['inference_type']}")
+            raise NotImplementedError(
+                f"Not implemented Inferencer type: {inference_args['inference_type']}")
 
-        librosa.output.write_wav(enhanced_dir / f"{name}.wav", enhanced, sr=16000)
+        # librosa.output.write_wav(enhanced_dir / f"{name}.wav", enhanced, sr=16000)
+        sf.write(enhanced_dir / f"{name}.wav", enhanced, 16000)
 
 
 class Inferencer(BaseInferencer):
