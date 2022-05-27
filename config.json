@@ -27,10 +27,18 @@
 
     "train.py": {
         "mixed_path": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/Audio",
-        "clean_path": "/Users/clarae/Desktop/Clean/Audio",
+        "clean_path": "/Users/clarae/Desktop/Clean",
         "dataset_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/mixed_audio.csv",
         "layers": [100,50],
         "epochs": 2
+    },
+
+    "enhance.py":{
+        "mixed_path": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/Audio",
+        "clean_path": "/Users/clarae/Desktop/Clean",
+        "dataset_csv": "/Users/clarae/Desktop/Speech_Enhancement-TG/Mixed/mixed_audio.csv",
+        "perceptron_path": "/Users/clarae/Desktop/Models1TG/model1_100-50-1_100ep_1647359520",
+        "perceptron_enhancement_path": "/Users/clarae/Desktop/Output_perceptron"
     },
 
     "evaluate.py":{
