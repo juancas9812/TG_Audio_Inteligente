@@ -44,8 +44,8 @@ test_df.reset_index(inplace=True, drop=True)
 audio_ls = []
 
 model1 = keras.models.load_model(model1_pth)  # load model
-total = range(len(test_df.index))
-for pos in total:
+total = len(test_df.index)
+for pos in range(total):
     # Pass audios to model:
     test_sig1 = generator(test_df[pos:pos+1][:], mix_path=mixed_path,
                           clean_path=None, training=False)
@@ -60,7 +60,7 @@ for pos in total:
 
     audio_ls.append([mix_name, clean_name, res_name])
 
-    print("audio ", pos+1, " of ", 10, end='\r')
+    print("audio ", pos+1, " of ", total, end='\r')
 
 
 dfout = pd.DataFrame(audio_ls, columns=["mix_file", "clean_file", "result_file"])

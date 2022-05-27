@@ -47,7 +47,6 @@ df_per['result_file'] = df_per['result_file'].astype('string')
 res = []
 
 total = len(test_df.index)
-total = 4
 for pos in range(total):
 
     # read mix signal
