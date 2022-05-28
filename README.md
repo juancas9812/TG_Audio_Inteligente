@@ -61,9 +61,9 @@ torchinfo
 En caso de ya tener los audios de voz y de ruido con longitud de 5s y con el
 mismo muestreo ejecutar solamente el código dataset_list.py.
 
-Se debe modificar el archivo [config.json5](config.json5) y colocar las rutas
+Se debe modificar el archivo [config.json](config.json) y colocar las rutas
 de las carpetas y metadatos de los audios antes de ejecutar cualquiera de los
-códigos en la carpeta [Dataset](Dataset). Una vez modificado el archivo [config.json5](config.json5), ejecutar de la siguiente manera:
+códigos en la carpeta [Dataset](Dataset). Una vez modificado el archivo [config.json](config.json), ejecutar de la siguiente manera:
 ```bash
 python3 Dataset/dataset_list.py
 ```
@@ -116,7 +116,7 @@ python3 train.py -C config/train/baseline_model.json5
 ## 6. Uso de los modelos y evaluación:
 Para usar el modelo 1 (perceptron) en el conjunto de datos de evaluacion usar el código
 [enhance.py](Perceptron/enhance.py) de la carpeta [Perceptron](Perceptron). Antes de ejecutar, 
-configurar los parámetros de *"enhance.py"* en el archivo de [config.json5](config.json5):
+configurar los parámetros de *"enhance.py"* en el archivo de [config.json](config.json):
 ```json
 "enhance.py":{
     "mixed_path": "...ruta de los audios de mezclas",
