@@ -6,7 +6,7 @@
 
 <figure>
     <img src="/Images/model_2_predict.png"
-         alt="Predicción de una señal de voz a partir de una senal de ruido" title="Predicción de una señal de voz a partir de una señal de ruido">
+         alt="Predicción de una señal de voz a partir de una senal de voz con ruido de fondo" title="Predicción de una señal de voz a partir de una señal de voz con ruido de ruido">
 </figure>
 
 En este repositorio se encuentra el código implementado durante el desarrollo
