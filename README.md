@@ -4,6 +4,11 @@
 #### Juan Camilo Sarmiento Peñuela
 ---
 
+<figure>
+    <img src="/Images/model_2_predict.png"
+         alt="Predicción de una señal de voz a partir de una senal de ruido" title="Predicción de una señal de voz a partir de una señal de ruido">
+</figure>
+
 En este repositorio se encuentra el código implementado durante el desarrollo
 del trabajo de grado Audio inteligente: reducción de ruido de fondo con
 inteligencia artificial, y también se encuentran los modelos entrenados y los
