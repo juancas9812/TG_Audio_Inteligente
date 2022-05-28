@@ -7,7 +7,7 @@
 En este repositorio se encuentra el código implementado durante el desarrollo
 del trabajo de grado Audio inteligente: reducción de ruido de fondo con
 inteligencia artificial, y también se encuentran los modelos entrenados y los
-resultados obtenidos. A continuación se describen los contenidos del
+resultados obtenidos. A continuación se describe el proyecto asi como los contenidos del
 repositorio, y cómo utilizar el código para entrenar los modelos y/o
 utilizarlos.
 
@@ -26,6 +26,7 @@ utilizarlos.
         - :page_with_curl:[generator.py](Perceptron/generator.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Generador de datos para el modelo 1
         - :page_with_curl:[model.py](Perceptron/model.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Arquitectura del modelo 1
         - :page_with_curl:[train.py](Perceptron/train.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Entrenamiento del modelo 1
+        - :page_with_curl:[enhance.py](Perceptron/train.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Uso del modelo 1
     - :open_file_folder:[CRN](CRN)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Carpeta con los códigos del segundo modelo
         - :open_file_folder:[config](CRN/config)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Configuraciones para entrenamiento y uso del segundo modelo
             - :open_file_folder:[train](CRN/config/train)
@@ -34,7 +35,9 @@ utilizarlos.
                 - :clipboard:[basic.json5](CRN/config/inference/basic.json5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Configuración para uso del modelo 2
         - :page_with_curl:[inference.py](CRN/inference.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Código para usar el modelo 2
         - :page_with_curl:[train.py](CRN/train.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Código para entrenar el modelo 2
-
+    - :open_file_folder:[Evaluation](Evaluation) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Código para evaluar los modelos
+        - :page_with_curl:[evaluation_metrics.py](Evaluation/evaluation_metrics.py) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Definición de las medidas
+        - :page_with_curl:[evaluate.py](Evaluation/evaluate.py) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Evaluacion de los modelos
 
 ## 2. Dependencias
 Se deben tener los siguientes módulos de python en el ambiente:
@@ -100,7 +103,72 @@ para el entrenamiento y validación respectivamente dentro de *"train_dataset"* 
 modificando el valor del parámetro *"epochs"* dentro de *"trainer"*.
 
 Para entrenar el segundo modelo:
-```
+```bash
 python3 CRN/train.py -C CRN/config/train/baseline_model.json5
 ```
-o entrar a la carpeta CRN y ejecutar el archivo [train.py](CRN/train.py)
+o entrar a la carpeta CRN y ejecutar el archivo [train.py](CRN/train.py):
+```
+cd CRN
+python3 train.py -C config/train/baseline_model.json5
+```
+
+
+## 6. Uso de los modelos y evaluación:
+Para usar el modelo 1 (perceptron) en el conjunto de datos de evaluacion usar el código
+[enhance.py](Perceptron/enhance.py) de la carpeta [Perceptron](Perceptron). Antes de ejecutar, 
+configurar los parámetros de *"enhance.py"* en el archivo de [config.json5](config.json5):
+```json
+"enhance.py":{
+    "mixed_path": "...ruta de los audios de mezclas",
+    "clean_path": "...ruta de los audios de voz",
+    "dataset_csv": "...ruta de los datos del conjunto de datos/nombre_archivo.csv",
+    "perceptron_path": "...ruta de la carpeta con el modelo",
+    "perceptron_enhancement_path": "...ruta para guardar audios y datos"
+},
+```
+Luego ejecutar el código:
+```bash
+python3 Perceptron/enhance.py
+```
+
+Para usar el modelo 2 (CRN) en el conjunto de datos de evaluacion se debe configurar la ruta del 
+conjunto de datos en los parámetros de *"dataset"* en el archivo [basic.json5](CRN/config/inference/basic.json5) de la 
+carpeta [CRN/config/inference](CRN/config/inference). Luego ejecutar el código [inference.py](CRN/inference.py) especificando
+el archivo de configuración, la ruta del directorio del modelo, y la ruta del directorio de destino,
+
+desde la [base](https://github.com/juancas9812/TG_Audio_Inteligente):
+```bash
+python3 CRN/inference.py \
+    -C CRN/config/inference/basic.json5 \
+    -cp Model2/baseline_model/checkpoints/latest_model.tar \
+    -dist Output_crn/enhanced
+```
+
+o desde la carpeta [CRN](CRN):
+```bash
+cd CRN
+python3 inference.py \
+    -C config/inference/basic.json5 \
+    -cp ./Model2/baseline_model/checkpoints/latest_model.tar \
+    -dist ../Output_crn/enhanced
+```
+
+Para evaluar los modelos configurar los parametros de *"evaluate.py"* en el archivo [config.json](config.json):
+```json
+"evaluate.py":{
+    "mixed_path": "...ruta de los de las mezclas",
+    "clean_path": "...ruta de los audios de voz",
+    "dataset_csv": "...ruta de los datos del conjunto de audio/nombre_archivo.csv",
+    "perceptron_enhancement_path": "...ruta del modelo 1",
+    "crn_enhancement_path": "...ruta del modelo 2",
+    "results_csv_path": "...ruta para guardar el archivo con la tabla de resultados"
+}
+```
+Luego, ejecutar el código [evaluate.py](Evaluation/evaluate.py):
+```bash
+python3 Evaluation.evaluate.py
+```
+
+
+
+
