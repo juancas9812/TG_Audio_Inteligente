@@ -14,7 +14,7 @@ utilizarlos.
 ## 1. Estructura del repositorio
 
 - :package:[TG_Audio_Inteligente](https://github.com/juancas9812/TG_Audio_Inteligente)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Repositorio
-    - :clipboard:[config.json5](config.json5)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Configuracion para códigos dentro de Dataset y Perceptron
+    - :clipboard:[config.json](config.json)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Configuracion para códigos dentro de Dataset, Perceptron y Evaluation
     - :open_file_folder:[Dataset](Dataset)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Carpeta con codigos para crear el conjunto de datos
         - :page_with_curl:[div_audio.py](Dataset/div_audio.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #Codigo para dividir audios originales
         - :page_with_curl:[mix_audio.py](Dataset/mix_audio.py)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#Código para mezclar audios de voz y ruido
@@ -61,9 +61,9 @@ torchinfo
 En caso de ya tener los audios de voz y de ruido con longitud de 5s y con el
 mismo muestreo ejecutar solamente el código dataset_list.py.
 
-Se debe modificar el archivo [config.json5](config.json5) y colocar las rutas
+Se debe modificar el archivo [config.json](config.json) y colocar las rutas
 de las carpetas y metadatos de los audios antes de ejecutar cualquiera de los
-códigos en la carpeta [Dataset](Dataset). Una vez modificado el archivo [config.json5](config.json5), ejecutar de la siguiente manera:
+códigos en la carpeta [Dataset](Dataset). Una vez modificado el archivo [config.json](config.json), ejecutar de la siguiente manera:
 ```bash
 python3 Dataset/dataset_list.py
 ```
@@ -72,7 +72,7 @@ de datos es de 70/15/15 (train/test/val) por defecto.
 
 
 ## 4. Entrenamiento del modelo 1
-Para entrenar el modelo 1 se debe modificar el archivo [config.json5](config.json5)
+Para entrenar el modelo 1 se debe modificar el archivo [config.json](config.json)
 con la ruta de los audios de mezcla (voz+ruido) y de voz, y adicionalmente, se
 debe especificar el número de epochs y el número de neuronas por capa:
 ```json
@@ -116,7 +116,7 @@ python3 train.py -C config/train/baseline_model.json5
 ## 6. Uso de los modelos y evaluación:
 Para usar el modelo 1 (perceptron) en el conjunto de datos de evaluacion usar el código
 [enhance.py](Perceptron/enhance.py) de la carpeta [Perceptron](Perceptron). Antes de ejecutar, 
-configurar los parámetros de *"enhance.py"* en el archivo de [config.json5](config.json5):
+configurar los parámetros de *"enhance.py"* en el archivo de [config.json](config.json):
 ```json
 "enhance.py":{
     "mixed_path": "...ruta de los audios de mezclas",
@@ -132,7 +132,7 @@ python3 Perceptron/enhance.py
 ```
 
 Para usar el modelo 2 (CRN) en el conjunto de datos de evaluacion se debe configurar la ruta del 
-conjunto de datos en los parámetros de *"dataset"* en el archivo [basic.json5](CRN/config/inference/basic.json5) de la 
+conjunto de datos (carpeta o archivo con extension .txt) en los parámetros de *"dataset"* en el archivo [basic.json5](CRN/config/inference/basic.json5) de la 
 carpeta [CRN/config/inference](CRN/config/inference). Luego ejecutar el código [inference.py](CRN/inference.py) especificando
 el archivo de configuración, la ruta del directorio del modelo, y la ruta del directorio de destino,
 
