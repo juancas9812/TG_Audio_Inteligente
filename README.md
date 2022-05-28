@@ -132,7 +132,7 @@ python3 Perceptron/enhance.py
 ```
 
 Para usar el modelo 2 (CRN) en el conjunto de datos de evaluacion se debe configurar la ruta del 
-conjunto de datos en los parámetros de *"dataset"* en el archivo [basic.json5](CRN/config/inference/basic.json5) de la 
+conjunto de datos (carpeta o archivo con extension .txt) en los parámetros de *"dataset"* en el archivo [basic.json5](CRN/config/inference/basic.json5) de la 
 carpeta [CRN/config/inference](CRN/config/inference). Luego ejecutar el código [inference.py](CRN/inference.py) especificando
 el archivo de configuración, la ruta del directorio del modelo, y la ruta del directorio de destino,
 
